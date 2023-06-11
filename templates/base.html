@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Car Price Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  <style>
+.topnav {
+  overflow: hidden;
+  background-color: #80b5a3;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: wheat;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: wheat;
+  color: #232a34;
+}
+
+.topnav a.active {
+  background-color: wheat;
+  color: #232a34;
+}
+
+a {
+  cursor: alias;
+  color: wheat;
+  font-size: 120%;
+}
+
+h4{
+  color: wheat;
+  padding-top: 4%;
+}
+
+h3{
+  color: wheat;
+  background-color: #232a34;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  padding-left: 4px;
+}
+
+.bootstrap-select {
+  max-width: 200px;
+  
+}
+.bootstrap-select .btn {
+  background-color: #232a34;
+  color: wheat;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+@media screen and (min-width: 601px) {
+  h4 {
+    font-size: 25px;
+  }
+
+  h3 {
+    font-size: 30px;
+  }
+
+  input[type="number"]
+  {
+    border: thick;
+    width: 420px;
+    padding: 3px 3px;
+    background-color: #e9e9e9;
+    font-size: large;
+    border: #232a34;
+    border-style: solid;
+    border-width: 5px;
+  }
+
+  input[type="number"]:focus
+  {
+    outline: 0;
+    
+  }
+
+  .predict-button
+  {
+    border: 5px;
+    border-color: #232a34;
+    border-style: solid;
+    background: none;
+    background-color: wheat;
+    color: #232a34;
+    width: 165px;
+    font-size: large;
+    padding: 5px;
+  }
+
+  .btn{
+    font-size: large;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  #logo{
+    height: 100px;
+    width: 310px;
+  }
+
+  h4 {
+    font-size: 15px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  /* ===========================
+   ====== Search Box ====== 
+   =========================== */
+
+  input[type="number"]
+  {
+    border: thick;
+    width: 300px;
+    padding: 3px 3px;
+    background-color: #e9e9e9;
+    font-size: medium;
+    border: #232a34;
+    border-style: solid;
+    border-width: 5px;
+  }
+
+  .predict-button
+  {
+    border: 5px;
+    border-color: #232a34;
+    border-style: solid;
+    background: none;
+    background-color: wheat;
+    color: #232a34;
+    width: 165px;
+    font-size: large;
+    padding: 5px;
+  }
+
+  .btn{
+    font-size: small;
+  }
+
+}
+
+body{
+  /* background-color: rgb(184, 144, 197); */
+  background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+  font-family: 'Times New Roman';
+}
+.navbar{
+  background-color: #96e6a1;
+  
+}
+.navbar li a{
+  /* background-color: #68b98b; */
+  color: rgb(0, 0, 0);
+  font-family: fantasy;
+}
+
+.navbar li a:hover{
+  background-color: wheat;
+  color: #232a34;
+}
+
+.navbar .active{
+  background-color: wheat;
+  color: #232a34;
+}
+
+hr {
+  border:6px solid #232a34;
+  border-radius: 5px;
+  background-color: wheat;
+  
+}
+
+.classy_frame{
+  position: relative;
+  display: block;
+  border: solid;
+  border-color: wheat;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: none;
+  transform: scale(0.98) translateY(5px);
+  padding-top: 2%;
+  margin-bottom: 3%;
+
+  
+}
+.classy_frame:hover{
+  box-shadow: 0px 20px 30px wheat;
+  transition: all ease 0.4s;
+}
+
+</style>
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='other images/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+
+<nav class="navbar" style="background-color: #96e6a1;">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        
+        <li><a href="/"><h1>Used Car Price Prediction</h1></a></li>
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+ <br>
+
+<!-- Modal -->
+<div class="modal fade" id="resultPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content classy_frame" style=" background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);">
+      <div class="modal-header">
+        <p class="modal-title" id="resultTitle" style="color:rgb(0, 0, 0);font-size:large; font-family: fantasy;">Modal title</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:rgb(0, 0, 0);font-size: large;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color:rgb(0, 0, 0); font-size:medium; font-family: fantasy;" id="resultMessage" style="color:rgb(0, 0, 0);"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: rgb(0, 0, 0); color: #ffffff;">ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <br><br>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<footer  style="background-color:#232a34">
+  <div class = "container">
+    <div class = "row">
+      <hr>
+      <div class = "col-xs-6 col-sm-3">
+        <h4>
+          <a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </h4>
+        <h4>
+          <a href="#" target="_blank"><i class="fab fa-linkedin-square"></i> Linkedin</a>
+        </h4>
+        <h4>
+          <a href="#" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        </h4>
+        <h4>
+          <a href="#" target="_blank"><i class="fab fa-github"></i> Github</a>
+        </h4>
+        <h4>
+          <a href="#" target="_blank"><i class="fab fa-kaggle"></i> Kaggle</a>
+        </h4>          
+      </div>
+      <div class = "col-xs-0 col-sm-6">
+
+      </div>
+    </div>
+    <br>
+  </div>
+</footer>
+</body>
+</html>
